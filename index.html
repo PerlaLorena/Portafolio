@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portafolio UX/UI · Diseñadora de Experiencias</title>
+<link rel="icon" href="https://png.pngtree.com/png-vector/20190701/ourmid/pngtree-briefcase-icon-for-your-project-png-image_1533133.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 
@@ -913,9 +914,9 @@ footer {
       </a>
     </div>
 
-    <div class="hero-stats">
+    <!-- <div class="hero-stats">
       <div>
-        <span class="h-stat-num">4+</span>
+        <span class="h-stat-num">6+</span>
         <span class="h-stat-lbl">Años diseñando</span>
       </div>
       <div>
@@ -926,7 +927,7 @@ footer {
         <span class="h-stat-num">15</span>
         <span class="h-stat-lbl">Clientes felices</span>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="hero-right">
@@ -984,9 +985,15 @@ footer {
         <div class="s-label">Sobre mí</div>
         <h2 class="s-title">Diseño con <em>empatía</em><br>y datos.</h2>
         <p class="s-desc">
-          Soy Diseñadora UX/UI con 6 años de experiencia en la creación de productos digitales, sistemas administrativos y sitios web. Me especializo en organizar información compleja y convertir procesos operativos en interfaces claras, funcionales y fáciles de usar.
+          
+Especializada en UX/UI para sistemas administrativos y plataformas digitales, 
+disfruto convertir procesos complejos en herramientas intuitivas, eficientes y 
+fáciles de usar. Mi enfoque une pensamiento analítico, diseño centrado en el usuario y 
+conocimiento técnico para crear soluciones escalables que faciliten la operación diaria de empresas y equipos.
 
-Mi enfoque combina arquitectura de información, diseño de flujos y prototipado en alta fidelidad, colaborando con desarrollo para asegurar que cada solución sea viable, escalable y lista para implementación.
+Desde la investigación y definición de flujos hasta el diseño de interfaces y la colaboración 
+con desarrollo, participo en cada etapa del proceso para asegurar que las decisiones de diseño 
+tengan un impacto real en la experiencia y en los objetivos del negocio.
         </p>
 
         <div class="sobre-tools">
@@ -1003,7 +1010,7 @@ Mi enfoque combina arquitectura de información, diseño de flujos y prototipado
 
         <div class="sobre-values">
           <div class="val-item">
-            <div class="val-num">4+</div>
+            <div class="val-num">6+</div>
             <div class="val-lbl">Años de experiencia</div>
           </div>
           <div class="val-item">
@@ -1064,7 +1071,7 @@ Mi enfoque combina arquitectura de información, diseño de flujos y prototipado
 <div class="divider-full"></div>
 
 <!-- PROYECTOS -->
-<section id="proyectos">
+<section id="proyectos" style="padding: 0%;">
   <div class="section-wrap">
     <div class="projects-header">
       <div>
@@ -1430,22 +1437,41 @@ Mi enfoque combina arquitectura de información, diseño de flujos y prototipado
   <div class="footer-copy">© 2026 · Todos los derechos reservados</div>
 </footer>
 
+
+<script>
+      function openImage(src) {
+        document.getElementById("modalImg").src = src;
+        document.getElementById("imageModal").style.display = "flex";
+      }
+
+      function closeImage() {
+        document.getElementById("imageModal").style.display = "none";
+      }
+
+      document
+        .getElementById("imageModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeImage();
+          }
+        });
+    </script>
 <!-- CURSOR SCRIPT -->
 <script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
 
 
-  fetch('dos.html')
+  fetch('proyects.html')
   .then(response => response.text())
   .then(html => {
     document.getElementById('proyectos').innerHTML = html;
   });
 
-  fetch('dos.html')
+  fetch('proyects.html')
   .then(response => response.text())
   .then(html => {
-    const contenedor = document.getElementById('dos');
+    const contenedor = document.getElementById('proyects');
     contenedor.innerHTML = html;
 
     contenedor.querySelectorAll('script').forEach(oldScript => {
