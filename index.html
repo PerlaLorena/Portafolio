@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio UX/UI · Diseñadora de Experiencias</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --cream:   #fdf8f3;
+  --sand:    #f5ede0;
+  --blush:   #f2c4b0;
+  --rose:    #d4736a;
+  --rose-dk: #b05a52;
+  --mauve:   #9b6b7a;
+  --sage:    #7a9e8e;
+  --ink:     #2b2320;
+  --ink2:    #5c4a44;
+  --muted:   #a08c86;
+  --line:    rgba(43,35,32,0.1);
+  --white:   #ffffff;
+
+  --f-display: 'Cormorant Garamond', serif;
+  --f-body:    'DM Sans', sans-serif;
+
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ─── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--f-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ──────────────────────────────────────── */
+.cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: var(--rose);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s;
+  mix-blend-mode: multiply;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--rose);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s var(--ease), width 0.4s var(--ease), height 0.4s var(--ease), opacity 0.3s;
+  opacity: 0.5;
+}
+
+body:hover .cursor-ring { opacity: 1; }
+
+/* ─── NAV ─────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 1.25rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(253,248,243,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.nav-logo b { font-style: normal; font-weight: 600; }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.25s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--rose);
+  transition: width 0.3s var(--ease);
+}
+
+.nav-links a:hover { color: var(--rose); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--white); background: var(--rose);
+  padding: 0.55rem 1.4rem; border-radius: 100px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--rose-dk); transform: translateY(-1px); }
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.hero {
+  padding-top: 0%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative blobs */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(242,196,176,0.35) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(122,158,142,0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: 50px; left: -80px;
+  pointer-events: none;
+}
+
+.hero-left {
+  padding: 4rem 3.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 2rem;
+  animation: slideIn 0.9s var(--ease) both;
+}
+
+.eyebrow-dot {
+  width: 8px; height: 8px;
+  background: var(--rose); border-radius: 50%;
+}
+
+.eyebrow-text {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--rose);
+}
+
+.hero-headline {
+  font-family: var(--f-display);
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  animation: slideIn 0.9s var(--ease) 0.1s both;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--rose);
+  display: block;
+}
+
+.hero-sub {
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  animation: slideIn 0.9s var(--ease) 0.2s both;
+}
+
+.hero-desc {
+  font-size: 0.95rem;
+  color: var(--ink2);
+  max-width: 460px;
+  line-height: 1.85;
+  margin-bottom: 3rem;
+  animation: slideIn 0.9s var(--ease) 0.3s both;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; align-items: center;
+  animation: slideIn 0.9s var(--ease) 0.4s both;
+}
+
+.btn-fill {
+  background: var(--ink); color: var(--cream);
+  padding: 0.9rem 2rem; border-radius: 100px;
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+  text-decoration: none; text-transform: uppercase;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-fill:hover { background: var(--rose); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,115,106,0.3); }
+
+.btn-ghost {
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+  color: var(--ink2); text-decoration: none; text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: color 0.25s;
+}
+.btn-ghost:hover { color: var(--rose); }
+.btn-ghost svg { transition: transform 0.3s; }
+.btn-ghost:hover svg { transform: translateX(4px); }
+
+/* HERO RIGHT — stacked cards */
+.hero-right {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0rem 3.5rem 5rem 1rem;
+  z-index: 1;
+  animation: fadeIn 1.1s var(--ease) 0.3s both;
+}
+
+.hero-visual {
+  position: relative;
+  width: 100%; max-width: 420px;
+}
+
+.hv-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(43,35,32,0.12);
+}
+
+.hv-card-main {
+  width: 100%;
+}
+
+.hv-card-header {
+  background: var(--sand);
+  padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hv-dots { display: flex; gap: 0.4rem; }
+.hv-dot { width: 10px; height: 10px; border-radius: 50%; }
+.hv-dot:nth-child(1) { background: #ff6b6b; }
+.hv-dot:nth-child(2) { background: #ffd166; }
+.hv-dot:nth-child(3) { background: #06d6a0; }
+
+.hv-card-label {
+  font-size: 0.72rem; color: var(--muted); font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.hv-card-body { padding: 1.5rem; }
+
+.hv-mockup {
+  background: var(--sand);
+  border-radius: 12px; height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; margin-bottom: 1.25rem;
+  position: relative; overflow: hidden;
+}
+
+.hv-mockup::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(242,196,176,0.5) 0%, transparent 60%);
+}
+
+.hv-wireframe { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.hv-wf-row {
+  height: 10px; background: var(--line);
+  border-radius: 100px;
+}
+.hv-wf-row.short { width: 60%; }
+.hv-wf-row.med   { width: 80%; }
+
+/* Floating tag cards */
+.hv-float {
+  position: absolute;
+  background: var(--white);
+  border-radius: 14px;
+  padding: 0.85rem 1.1rem;
+  box-shadow: 0 10px 40px rgba(43,35,32,0.14);
+  font-size: 0.75rem; font-weight: 500;
+}
+
+.hv-float-1 {
+  bottom: -20px; left: -30px;
+  animation: float1 4s ease-in-out infinite;
+}
+
+.hv-float-2 {
+  top: 20px; right: -25px;
+  animation: float2 4.5s ease-in-out infinite;
+}
+
+.hv-float-tag {
+  font-size: 0.6rem; color: var(--rose);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 0.25rem; font-weight: 600;
+}
+
+.hv-float-val { color: var(--ink); font-weight: 600; }
+
+.hv-float-emoji { font-size: 1.2rem; margin-bottom: 0.25rem; }
+
+/* HERO STATS BAR */
+.hero-stats {
+  position: absolute; bottom: 3rem; left: 3.5rem;
+  display: flex; gap: 2.5rem;
+  animation: slideIn 0.9s var(--ease) 0.5s both;
+}
+
+.h-stat-num {
+  font-family: var(--f-display);
+  font-size: 2.2rem; font-weight: 600;
+  color: var(--rose); line-height: 1;
+  display: block;
+}
+
+.h-stat-lbl {
+  font-size: 0.72rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* ─── SECTION BASE ────────────────────────────────────────── */
+.section-wrap { max-width: 1280px; margin: 0 auto; padding: 0 3.5rem; }
+
+.divider-full { height: 1px; background: var(--line); }
+
+/* SECTION LABEL STYLE */
+.s-label {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 1rem;
+}
+.s-label::before {
+  content: ''; width: 24px; height: 1px;
+  background: var(--muted); display: block;
+}
+
+.s-title {
+  font-family: var(--f-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--ink);
+}
+.s-title em { font-style: italic; color: var(--rose); }
+
+.s-desc {
+  font-size: 0.95rem; color: var(--ink2);
+  line-height: 1.85; max-width: 500px; margin-top: 1rem;
+}
+
+/* ─── SOBRE MÍ ────────────────────────────────────────────── */
+#sobre {
+  padding: 7rem 0;
+  background: var(--cream);
+}
+
+.sobre-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+
+.sobre-visual {
+  position: relative;
+}
+
+.sobre-img-frame {
+  width: 100%; aspect-ratio: 3/4; max-width: 360px;
+  background: var(--sand);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(43,35,32,0.1);
+}
+
+.sobre-img-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, var(--blush) 0%, var(--sand) 100%);
+  opacity: 0.4;
+}
+
+.sobre-tag-float {
+  position: absolute;
+  background: var(--white);
+  border-radius: 14px;
+  padding: 0.85rem 1.25rem;
+  box-shadow: 0 10px 30px rgba(43,35,32,0.1);
+  bottom: 2rem; right: -1.5rem;
+  font-size: 0.8rem;
+}
+
+.sobre-tag-title { color: var(--muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.sobre-tag-val { color: var(--ink); font-weight: 600; margin-top: 0.2rem; font-size: 0.88rem; }
+
+.sobre-right { }
+
+.sobre-tools {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 2.5rem; margin-bottom: 2.5rem;
+}
+
+.tool-pill {
+  background: var(--sand);
+  color: var(--ink2);
+  font-size: 0.75rem; font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.tool-pill:hover { background: var(--blush); color: var(--ink); border-color: var(--blush); }
+
+.sobre-values { display: flex; gap: 2rem; }
+
+.val-item { }
+.val-num {
+  font-family: var(--f-display);
+  font-size: 2.5rem; font-weight: 600;
+  color: var(--rose); line-height: 1;
+}
+.val-lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+
+/* ─── PROCESO ─────────────────────────────────────────────── */
+#proceso { padding: 7rem 0; background: var(--sand); }
+
+.proceso-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem; margin-top: 4rem;
+}
+
+.proceso-card {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.proceso-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(43,35,32,0.1); }
+
+.proceso-num {
+  font-family: var(--f-display);
+  font-size: 5rem; font-weight: 600;
+  color: var(--blush);
+  line-height: 1;
+  position: absolute; top: -0.5rem; right: 1rem;
+  pointer-events: none;
+}
+
+.proceso-icon { font-size: 1.8rem; margin-bottom: 1.25rem; }
+
+.proceso-title {
+  font-family: var(--f-display);
+  font-size: 1.3rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.6rem;
+}
+
+.proceso-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
+
+/* ─── PROYECTOS ───────────────────────────────────────────── */
+#proyectos { padding: 7rem 0; background: var(--cream); }
+
+.projects-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem;
+}
+
+.projects-layout { display: flex; flex-direction: column; gap: 2rem; }
+
+/* Project rows alternate big/small */
+.project-row {
+  display: grid;
+  gap: 2rem;
+}
+.project-row.row-1 { grid-template-columns: 1.4fr 1fr; }
+.project-row.row-2 { grid-template-columns: 1fr 1.4fr; }
+
+.project-card {
+  background: var(--white);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s;
+  position: relative;
+}
+
+.project-card:hover { transform: translateY(-8px); box-shadow: 0 30px 70px rgba(43,35,32,0.14); }
+
+.project-thumb {
+  height: 220px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; position: relative; overflow: hidden;
+}
+
+.thumb-1 { background: linear-gradient(135deg, #fde8e0, #f2c4b0); }
+.thumb-2 { background: linear-gradient(135deg, #e8f0ed, #c5ddd5); }
+.thumb-3 { background: linear-gradient(135deg, #f0e8f5, #d9c5e8); }
+.thumb-4 { background: linear-gradient(135deg, #fef3e0, #f5ddb5); }
+
+.project-thumb-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  background: rgba(212,115,106,0.85);
+  transition: opacity 0.3s var(--ease);
+  font-size: 0.85rem; font-weight: 500; color: var(--white);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.project-card:hover .project-thumb-overlay { opacity: 1; }
+
+.project-type {
+  position: absolute; top: 1.25rem; left: 1.25rem;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  font-size: 0.62rem; font-weight: 600; color: var(--ink2);
+  padding: 0.3rem 0.75rem; border-radius: 100px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+.project-body { padding: 1.75rem; }
+
+.project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.project-tag {
+  font-size: 0.62rem; font-weight: 600; color: var(--rose);
+  background: rgba(212,115,106,0.1);
+  padding: 0.2rem 0.6rem; border-radius: 100px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+.project-title {
+  font-family: var(--f-display);
+  font-size: 1.5rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.6rem; line-height: 1.2;
+}
+
+.project-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+
+.project-meta { display: flex; justify-content: space-between; align-items: center; }
+.project-year { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+
+.project-link {
+  font-size: 0.75rem; font-weight: 500; color: var(--rose);
+  text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: gap 0.2s;
+}
+.project-link:hover { gap: 0.7rem; }
+
+/* ─── HABILIDADES ─────────────────────────────────────────── */
+#habilidades { padding: 7rem 0; background: var(--ink); }
+
+#habilidades .s-title { color: var(--cream); }
+#habilidades .s-title em { color: var(--blush); }
+#habilidades .s-label { color: var(--blush); }
+#habilidades .s-label::before { background: var(--blush); }
+#habilidades .s-desc { color: rgba(253,248,243,0.6); }
+
+.skills-columns {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 4rem;
+}
+
+.skill-group {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px; padding: 2rem;
+  transition: background 0.3s, border-color 0.3s;
+}
+.skill-group:hover { background: rgba(255,255,255,0.07); border-color: rgba(242,196,176,0.2); }
+
+.skill-group-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+.skill-group-name {
+  font-family: var(--f-display);
+  font-size: 1.25rem; font-weight: 400; font-style: italic;
+  color: var(--cream); margin-bottom: 1.25rem;
+}
+
+.skill-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.skill-item { }
+.skill-item-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.4rem;
+}
+.skill-item-name { font-size: 0.8rem; color: rgba(253,248,243,0.75); font-weight: 500; }
+.skill-item-pct { font-size: 0.72rem; color: var(--blush); font-weight: 600; }
+
+.skill-bar-track {
+  height: 3px; background: rgba(255,255,255,0.08);
+  border-radius: 100px; overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%; background: linear-gradient(90deg, var(--rose), var(--blush));
+  border-radius: 100px;
+  transform-origin: left;
+  animation: barGrow 1.2s var(--ease) both;
+}
+
+/* ─── EXPERIENCIA ─────────────────────────────────────────── */
+#experiencia { padding: 7rem 0; background: var(--cream); }
+
+.exp-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 5rem; margin-top: 4rem; }
+
+.exp-left { position: sticky; top: 6rem; align-self: start; }
+
+.exp-quote {
+  font-family: var(--f-display);
+  font-size: 1.6rem; font-weight: 300; font-style: italic;
+  color: var(--ink2); line-height: 1.5; margin-bottom: 2rem;
+}
+
+.exp-quote span { color: var(--rose); }
+
+.exp-cta {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--rose);
+  text-decoration: none; transition: gap 0.2s;
+}
+.exp-cta:hover { gap: 0.9rem; }
+
+.exp-list { display: flex; flex-direction: column; gap: 0; }
+
+.exp-item {
+  border-top: 1px solid var(--line);
+  padding: 2rem 0;
+  transition: background 0.2s;
+}
+.exp-item:last-child { border-bottom: 1px solid var(--line); }
+
+.exp-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
+
+.exp-role {
+  font-family: var(--f-display);
+  font-size: 1.35rem; font-weight: 600; color: var(--ink);
+}
+
+.exp-period {
+  font-size: 0.72rem; color: var(--muted); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  white-space: nowrap; padding-top: 0.3rem;
+}
+
+.exp-company { font-size: 0.85rem; color: var(--rose); font-weight: 500; margin-bottom: 0.75rem; }
+
+.exp-desc { font-size: 0.84rem; color: var(--ink2); line-height: 1.8; }
+
+.exp-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+.exp-chip {
+  background: var(--sand); color: var(--ink2);
+  font-size: 0.68rem; font-weight: 500;
+  padding: 0.2rem 0.65rem; border-radius: 100px;
+  border: 1px solid var(--line);
+}
+
+/* ─── TESTIMONIOS ─────────────────────────────────────────── */
+#testimonios { padding: 7rem 0; background: var(--sand); }
+
+.testimonios-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 4rem;
+}
+
+.test-card {
+  background: var(--white); border-radius: 20px;
+  padding: 2rem; position: relative;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.test-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(43,35,32,0.1); }
+
+.test-quote-mark {
+  font-family: var(--f-display);
+  font-size: 4rem; line-height: 0.7;
+  color: var(--blush); font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.test-text { font-size: 0.9rem; color: var(--ink2); line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; }
+
+.test-author { display: flex; align-items: center; gap: 0.75rem; }
+.test-avatar { width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+.test-name { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+.test-role { font-size: 0.72rem; color: var(--muted); }
+
+.ta-1 { background: var(--accent-light, #fde8e0); }
+.ta-2 { background: var(--accent2-light, #e8f0ed); }
+.ta-3 { background: #f0e8f5; }
+
+/* ─── CONTACTO ────────────────────────────────────────────── */
+#contacto { padding: 7rem 0 0; background: var(--cream); }
+
+.contact-hero {
+  text-align: center;
+  padding-bottom: 6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-hero .s-label { justify-content: center; margin-bottom: 1.5rem; }
+
+.contact-big-title {
+  font-family: var(--f-display);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 300; line-height: 1;
+  color: var(--ink); margin-bottom: 1.5rem;
+}
+.contact-big-title em { font-style: italic; color: var(--rose); }
+
+.contact-sub { font-size: 1rem; color: var(--muted); max-width: 480px; margin: 0 auto 3rem; line-height: 1.8; }
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; max-width: 900px; margin: 0 auto;
+}
+
+.contact-links-col { display: flex; flex-direction: column; gap: 1rem; padding-top: 1rem; }
+
+.c-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--sand); border-radius: 14px;
+  border: 1px solid var(--line);
+  text-decoration: none; color: var(--ink);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.c-link:hover { background: var(--blush); border-color: var(--blush); transform: translateX(4px); }
+
+.c-link-icon { font-size: 1.25rem; }
+.c-link-lbl { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.c-link-val { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+
+.contact-form-col { }
+
+.cf-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+.cf-label { font-size: 0.72rem; font-weight: 600; color: var(--ink2); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.cf-input, .cf-textarea {
+  background: var(--sand); border: 1.5px solid var(--line);
+  border-radius: 12px; color: var(--ink);
+  padding: 0.85rem 1.1rem;
+  font-family: var(--f-body); font-size: 0.88rem;
+  outline: none; transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+.cf-input::placeholder, .cf-textarea::placeholder { color: var(--muted); }
+.cf-input:focus, .cf-textarea:focus { border-color: var(--rose); background: var(--white); }
+.cf-textarea { resize: vertical; min-height: 110px; }
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+footer {
+  padding: 2.5rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.footer-logo {
+  font-family: var(--f-display);
+  font-size: 1.1rem; font-weight: 300; font-style: italic;
+  color: var(--ink);
+}
+
+.footer-tagline { font-size: 0.78rem; color: var(--muted); }
+.footer-copy { font-size: 0.75rem; color: var(--muted); }
+
+/* ─── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes slideIn {
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes barGrow {
+  from { width: 0; }
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-stats { position: static; margin-top: 3rem; }
+  .proceso-grid { grid-template-columns: 1fr 1fr; }
+  .skills-columns { grid-template-columns: 1fr 1fr; }
+  .exp-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .exp-left { position: static; }
+  .project-row.row-1, .project-row.row-2 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-left { padding: 7rem 1.5rem 4rem; }
+  .section-wrap { padding: 0 1.5rem; }
+  .sobre-grid { grid-template-columns: 1fr; }
+  .proceso-grid { grid-template-columns: 1fr; }
+  .skills-columns { grid-template-columns: 1fr; }
+  .testimonios-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+}
+
+.responsive-img {
+  max-width: 100%;
+  height: fit-content;
+  display: block;
+}
+
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><b>Perla</b> Puga</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta">Contáctame</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Perla Lorena Maldonado Puga</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Diseñadora
+      <em>UX/UI</em>
+      & Diseñadora Web
+    </h1>
+
+    <!-- <p class="hero-sub">UX/UI Designer & Product Thinker</p> -->
+
+    <p class="hero-desc">
+      Soy Diseñadora UX/UI con 6 años de experiencia en el diseño de productos digitales, sistemas administrativos y sitios web. Mi enfoque está en transformar procesos complejos en experiencias claras, funcionales y centradas en el usuario. A lo largo de mi trayectoria he trabajado en la definición de arquitectura de información, flujos de usuario, wireframes y prototipos de alta fidelidad en Adobe XD, colaborando directamente con equipos de desarrollo para entregar soluciones listas para implementación. Mi diferencial es combinar pensamiento estratégico, claridad estructural y conocimiento técnico (HTML, CSS, Bootstrap), lo que me permite diseñar con una visión integral del producto, desde la experiencia hasta su ejecución.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#proyectos" class="btn-fill">Ver mi trabajo</a>
+      <a href="#contacto" class="btn-ghost">
+        Hablemos
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <span class="h-stat-num">4+</span>
+        <span class="h-stat-lbl">Años diseñando</span>
+      </div>
+      <div>
+        <span class="h-stat-num">30+</span>
+        <span class="h-stat-lbl">Proyectos</span>
+      </div>
+      <div>
+        <span class="h-stat-num">15</span>
+        <span class="h-stat-lbl">Clientes felices</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hv-card hv-card-main">
+        <div class="hv-card-header">
+          <div class="hv-dots">
+            <div class="hv-dot"></div>
+            <div class="hv-dot"></div>
+            <div class="hv-dot"></div>
+          </div>
+          <span class="hv-card-label">Diseño en progreso...</span>
+        </div>
+        <div class="hv-card-body">
+          <div class="hv-mockup">🎨</div>
+          <div class="hv-wireframe">
+            <div class="hv-wf-row"></div>
+            <div class="hv-wf-row short"></div>
+            <div class="hv-wf-row med"></div>
+            <div class="hv-wf-row short"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hv-float hv-float-1">
+        <div class="hv-float-tag">Usabilidad</div>
+        <div class="hv-float-emoji">⭐</div>
+        <div class="hv-float-val">98% satisfacción</div>
+      </div>
+
+      <div class="hv-float hv-float-2">
+        <div class="hv-float-tag">Conversión</div>
+        <div class="hv-float-emoji">📈</div>
+        <div class="hv-float-val">+42% clicks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- SOBRE MÍ -->
+<section id="sobre">
+  <div class="section-wrap">
+    <div class="sobre-grid">
+      <div class="sobre-visual">
+        <div class="sobre-img-frame"><img src="images/photo.jpeg" alt="Foto" class="responsive-img" ></div>
+        <div class="sobre-tag-float">
+          <div class="sobre-tag-title">Especialidad</div>
+          <div class="sobre-tag-val">Product Design</div>
+        </div>
+      </div>
+
+      <div class="sobre-right">
+        <div class="s-label">Sobre mí</div>
+        <h2 class="s-title">Diseño con <em>empatía</em><br>y datos.</h2>
+        <p class="s-desc">
+          Soy Diseñadora UX/UI con 6 años de experiencia en la creación de productos digitales, sistemas administrativos y sitios web. Me especializo en organizar información compleja y convertir procesos operativos en interfaces claras, funcionales y fáciles de usar.
+
+Mi enfoque combina arquitectura de información, diseño de flujos y prototipado en alta fidelidad, colaborando con desarrollo para asegurar que cada solución sea viable, escalable y lista para implementación.
+        </p>
+
+        <div class="sobre-tools">
+          <span class="tool-pill">Figma</span>
+          <span class="tool-pill">Adobe XD</span>
+          <span class="tool-pill">Illustrator</span>
+          <span class="tool-pill">Photoshop</span>
+          <span class="tool-pill">HTML</span>
+          <span class="tool-pill">CSS</span>
+          <span class="tool-pill">Bootstrap</span>
+          <span class="tool-pill">Notion</span>
+          <span class="tool-pill">Miro</span>
+        </div>
+
+        <div class="sobre-values">
+          <div class="val-item">
+            <div class="val-num">4+</div>
+            <div class="val-lbl">Años de experiencia</div>
+          </div>
+          <div class="val-item">
+            <div class="val-num">30+</div>
+            <div class="val-lbl">Proyectos diseñados</div>
+          </div>
+          <div class="val-item">
+            <div class="val-num">15</div>
+            <div class="val-lbl">Clientes atendidos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="section-wrap">
+    <div class="s-label">Cómo trabajo</div>
+    <h2 class="s-title">Mi proceso <em>creativo</em></h2>
+    <p class="s-desc">Cada proyecto pasa por fases bien definidas para asegurar que el resultado final sea efectivo, bello y centrado en el usuario.</p>
+
+    <div class="proceso-grid">
+      <div class="proceso-card">
+        <div class="proceso-num">01</div>
+        <div class="proceso-icon">🔍</div>
+        <div class="proceso-title">Investigación</div>
+        <p class="proceso-desc">Entrevistas con usuarios, análisis de competencia y benchmarking para entender el problema real antes de diseñar.</p>
+      </div>
+
+      <div class="proceso-card">
+        <div class="proceso-num">02</div>
+        <div class="proceso-icon">💡</div>
+        <div class="proceso-title">Definición</div>
+        <p class="proceso-desc">Síntesis de hallazgos, mapas de empatía, user personas y flujos de usuario para definir qué vamos a resolver.</p>
+      </div>
+
+      <div class="proceso-card">
+        <div class="proceso-num">03</div>
+        <div class="proceso-icon">✏️</div>
+        <div class="proceso-title">Diseño</div>
+        <p class="proceso-desc">Wireframes, prototipos interactivos y diseño visual de alta fidelidad con sistemas de diseño coherentes.</p>
+      </div>
+
+      <div class="proceso-card">
+        <div class="proceso-num">04</div>
+        <div class="proceso-icon">🧪</div>
+        <div class="proceso-title">Validación</div>
+        <p class="proceso-desc">Pruebas de usabilidad, análisis de métricas e iteración continua hasta lograr el mejor resultado posible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="section-wrap">
+    <div class="projects-header">
+      <div>
+        <div class="s-label">Portafolio</div>
+        <h2 class="s-title">Proyectos <em>seleccionados</em></h2>
+      </div>
+      <a href="#contacto" class="btn-ghost">
+        Ver todos →
+      </a>
+    </div>
+
+    <div class="projects-layout">
+
+      <div class="project-row row-1">
+        <div class="project-card">
+          <div class="project-thumb thumb-1">
+            🛍️
+            <span class="project-type">App Móvil</span>
+            <div class="project-thumb-overlay">Ver caso →</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">UX Research</span>
+              <span class="project-tag">UI Design</span>
+              <span class="project-tag">Prototipado</span>
+            </div>
+            <div class="project-title">Rediseño de App de Moda</div>
+            <p class="project-desc">Rediseño completo de la experiencia de compra en app móvil. Aumento de conversión del 38% y reducción del abandono de carrito en un 52%.</p>
+            <div class="project-meta">
+              <span class="project-year">2024</span>
+              <a href="#" class="project-link">Ver caso completo →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb thumb-2">
+            📊
+            <span class="project-type">Dashboard</span>
+            <div class="project-thumb-overlay">Ver caso →</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">Sistema de Diseño</span>
+              <span class="project-tag">Data Viz</span>
+            </div>
+            <div class="project-title">Dashboard Financiero B2B</div>
+            <p class="project-desc">Sistema de diseño y dashboard para plataforma fintech dirigida a pequeñas empresas. Diseño de más de 80 componentes reutilizables.</p>
+            <div class="project-meta">
+              <span class="project-year">2024</span>
+              <a href="#" class="project-link">Ver caso completo →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-row row-2">
+        <div class="project-card">
+          <div class="project-thumb thumb-3">
+            🏥
+            <span class="project-type">Web App</span>
+            <div class="project-thumb-overlay">Ver caso →</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">Accesibilidad</span>
+              <span class="project-tag">UX Research</span>
+            </div>
+            <div class="project-title">Plataforma de Telemedicina</div>
+            <p class="project-desc">Diseño de experiencia de usuario para plataforma médica. Enfoque en accesibilidad WCAG 2.1 y simplificación del proceso de consulta.</p>
+            <div class="project-meta">
+              <span class="project-year">2023</span>
+              <a href="#" class="project-link">Ver caso completo →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb thumb-4">
+            📚
+            <span class="project-type">Producto Educativo</span>
+            <div class="project-thumb-overlay">Ver caso →</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tags">
+              <span class="project-tag">Gamificación</span>
+              <span class="project-tag">UI Design</span>
+              <span class="project-tag">Motion</span>
+            </div>
+            <div class="project-title">App de Aprendizaje de Idiomas</div>
+            <p class="project-desc">Diseño de experiencia gamificada para aprendizaje de idiomas. Retención de usuarios mejorada en un 65% gracias a microinteracciones y flujo optimizado.</p>
+            <div class="project-meta">
+              <span class="project-year">2023</span>
+              <a href="#" class="project-link">Ver caso completo →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="section-wrap">
+    <div class="s-label">Especialidades</div>
+    <h2 class="s-title">Lo que hago <em>muy bien</em></h2>
+    <p class="s-desc">Combino habilidades de investigación, diseño visual y pensamiento estratégico para crear productos digitales completos.</p>
+
+    <div class="skills-columns">
+
+      <div class="skill-group">
+        <div class="skill-group-icon">🎨</div>
+        <div class="skill-group-name">Diseño Visual</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">UI Design</span><span class="skill-item-pct">95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Sistemas de Diseño</span><span class="skill-item-pct">90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Motion & Animación</span><span class="skill-item-pct">80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Branding & Identidad</span><span class="skill-item-pct">75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-icon">🔍</div>
+        <div class="skill-group-name">UX Research</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Entrevistas de usuario</span><span class="skill-item-pct">92%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Pruebas de usabilidad</span><span class="skill-item-pct">88%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Análisis de datos</span><span class="skill-item-pct">82%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Mapas de empatía</span><span class="skill-item-pct">95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-icon">💻</div>
+        <div class="skill-group-name">Prototipado & Entrega</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Figma</span><span class="skill-item-pct">98%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:98%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Protopie / Framer</span><span class="skill-item-pct">85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">HTML / CSS básico</span><span class="skill-item-pct">70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-item-top"><span class="skill-item-name">Handoff a Dev</span><span class="skill-item-pct">95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+<!-- EXPERIENCIA -->
+<section id="experiencia">
+  <div class="section-wrap">
+    <div class="exp-layout">
+      <div class="exp-left">
+        <div class="s-label">Trayectoria</div>
+        <h2 class="s-title" style="font-size:2rem;">Experiencia<br><em>Profesional</em></h2>
+        <p class="exp-quote">
+          "El diseño es la <span>historia silenciosa</span> que le cuentas al usuario."
+        </p>
+        <a href="#contacto" class="exp-cta">
+          Trabajemos juntos →
+        </a>
+      </div>
+
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-row">
+            <div class="exp-role">Diseñadora UX/UI Jr</div>
+            <span class="exp-period">2024 — Actualidad</span>
+          </div>
+          <div class="exp-company">eGas S.A. de C.V. · Ciudad de México</div>
+          <p class="exp-desc">Diseño de interfaces para sistemas administrativos internos, enfocados en claridad operativa y eficiencia de procesos. Desarrollo de wireframes y prototipos funcionales en Adobe Xd, diseño de dashboards, tablas, formularios y flujos operativos. Colaboración directa con desarrolladores para entrega de interfaces listas para implementación.</p>
+          <div class="exp-chips">
+            <span class="exp-chip">Adobe Xd</span>
+            <span class="exp-chip">Dashboards</span>
+            <span class="exp-chip">Sistemas internos</span>
+            <span class="exp-chip">UX Flows</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-row">
+            <div class="exp-role">Diseñadora UX/UI & Web</div>
+            <span class="exp-period">2023 — 2024</span>
+          </div>
+          <div class="exp-company">Brainup Co. S.A. de C.V.</div>
+          <p class="exp-desc">Diseño de sistema interno y sitio web para el proyecto Logma. Definición de estructura de navegación, flujos de usuario y diseño UI consistente alineado a identidad de marca. Maquetación web con HTML, CSS y Bootstrap, además de desarrollo de piezas digitales para comunicación y posicionamiento.</p>
+          <div class="exp-chips">
+            <span class="exp-chip">UX Architecture</span>
+            <span class="exp-chip">HTML</span>
+            <span class="exp-chip">CSS</span>
+            <span class="exp-chip">Bootstrap</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-row">
+            <div class="exp-role">Diseñadora Gráfica & Web</div>
+            <span class="exp-period">Julio 2023 — Octubre 2023</span>
+          </div>
+          <div class="exp-company">The New Tieres S.A. de C.V.</div>
+          <p class="exp-desc">Diseño de interfaces web y materiales digitales. Gestión visual de productos en plataformas de e-commerce y producción de contenido multimedia para campañas digitales y posicionamiento visual. Primer contacto con flujos de trabajo colaborativos entre diseño y desarrollo.</p>
+          <div class="exp-chips">
+            <span class="exp-chip">E-commerce</span>
+            <span class="exp-chip">UI Web</span>
+            <span class="exp-chip">Contenido digital</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-row">
+            <div class="exp-role">Diseñadora UX/UI Jr</div>
+            <span class="exp-period">2022 — 2023</span>
+          </div>
+          <div class="exp-company">Intelimática Soluciones Informáticas S.A. de C.V.</div>
+          <p class="exp-desc">Diseño y maquetación de sistemas internos con múltiples roles de usuario. Creación de interfaces con filtros, modales, formularios y tablas de datos. Organización de arquitectura de información para optimizar tareas administrativas e implementación front-end con HTML, CSS y Bootstrap en colaboración con equipo técnico.</p>
+          <div class="exp-chips">
+            <span class="exp-chip">Arquitectura de Información</span>
+            <span class="exp-chip">Front-end</span>
+            <span class="exp-chip">Sistemas administrativos</span>
+            <span class="exp-chip">Bootstrap</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-row">
+            <div class="exp-role">Diseñadora Gráfica</div>
+            <span class="exp-period">2022 — 2022</span>
+          </div>
+          <div class="exp-company">ABC Judaica</div>
+          <p class="exp-desc">Desarrollo de contenido visual para redes sociales, fotografía digital y edición de producto. Creación de materiales gráficos comerciales enfocados en identidad visual y comunicación digital.</p>
+          <div class="exp-chips">
+            <span class="exp-chip">Diseño gráfico</span>
+            <span class="exp-chip">Redes sociales</span>
+            <span class="exp-chip">Fotografía</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-full"></div>
+
+
+<div class="divider-full"></div>
+
+<section id="contacto">
+      <div class="section-wrap">
+        <div class="contact-hero">
+          <div class="s-label">Hablemos</div>
+          <h2 class="contact-big-title">
+            ¿Creamos algo<br /><em>hermoso juntos?</em>
+          </h2>
+          <p class="contact-sub">
+            Estoy disponible para nuevos proyectos o colaboraciones
+          </p>
+
+          <div class="contact-grid">
+            <div class="contact-links-col">
+              <a href="mailto:perlapuga.diseno@gmail.com" class="c-link">
+                <span class="c-link-icon">✉️</span>
+                <div>
+                  <div class="c-link-lbl">Correo</div>
+                  <div class="c-link-val">perlapuga.diseno@gmail.com</div>
+                </div>
+              </a>
+              <a href="https://linkedin.com" class="c-link" target="_blank">
+                <span class="c-link-icon">💼</span>
+                <div>
+                  <div class="c-link-lbl">LinkedIn</div>
+                  <div
+                    class="c-link-val"
+                    href="https://www.linkedin.com/in/perla-lorena-maldonado-puga-91102318b/"
+                  >
+                    perla lorena maldonado puga
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://wa.me/525648798399"
+                class="c-link"
+                target="_blank"
+              >
+                <span class="c-link-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.2 7l-1.4 5 5.2-1.3c1.9 1 4.1 1.6 6.3 1.6 6.6 0 12-5.3 12-11.9S22.6 3 16 3zm0 21.8c-2 0-4-.6-5.7-1.7l-.4-.2-3.1.8.8-3-.2-.4c-1.2-1.8-1.9-3.9-1.9-6.1 0-5.6 4.6-10.1 10.3-10.1S26 8.6 26 14.2 20.3 24.8 16 24.8zm5.8-7.5c-.3-.1-1.9-.9-2.2-1-.3-.1-.5-.1-.7.1-.2.2-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.8-2.8-1.4-3.9-3.1-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6-.1-.1-.7-1.7-1-2.4-.3-.7-.6-.6-.7-.6h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.6 1.2 3 1.4 3.2c.2.2 2.4 3.7 5.9 5 .8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.9-.8 2.2-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z"
+                    />
+                  </svg>
+                </span>
+                <div>
+                  <div class="c-link-lbl">whatsapp</div>
+                  <div class="c-link-val">5648798399</div>
+                </div>
+              </a>
+
+              <div class="c-link">
+                <span class="c-link-icon">📍</span>
+                <div>
+                  <div class="c-link-lbl">Ubicación</div>
+                  <div class="c-link-val">Ciudad de México, México</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Perla Puga</div>
+  <div class="footer-tagline">Diseñadora UX/UI · Creando experiencias que importan</div>
+  <div class="footer-copy">© 2026 · Todos los derechos reservados</div>
+</footer>
+
+<!-- CURSOR SCRIPT -->
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+
+
+  fetch('dos.html')
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById('proyectos').innerHTML = html;
+  });
+
+  fetch('dos.html')
+  .then(response => response.text())
+  .then(html => {
+    const contenedor = document.getElementById('dos');
+    contenedor.innerHTML = html;
+
+    contenedor.querySelectorAll('script').forEach(oldScript => {
+      const newScript = document.createElement('script');
+
+      Array.from(oldScript.attributes).forEach(attr => {
+        newScript.setAttribute(attr.name, attr.value);
+      });
+
+      newScript.textContent = oldScript.textContent;
+
+      oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+  });
+
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    }, 60);
+  });
+
+  document.querySelectorAll('a, button, .project-card, .skill-group, .proceso-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '50px';
+      ring.style.height = '50px';
+      ring.style.opacity = '0.8';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.opacity = '0.5';
+    });
+  });
+</script>
+
+
+</body>
+</html>
